@@ -1,0 +1,38 @@
+# this is enigne script
+# you can find more info at https://github.com/ferhatgec/enigne
+
+if argc equal_to 1 =
+ print("to install, use > enigne " + arg_0 + " install\n");
+ exit(1);
+;
+
+if arg_1 equal_to "install" =
+ if path_exists("src/ffetch.zig") equal_to true =
+  exec("zig build-exe src/ffetch.zig --library curl --library c $(pkg-config --cflags libcurl)");
+
+  if (path_exists("ffetch") and is_file("ffetch")) equal_to true =
+   print("compiled successfully\n");
+   
+   if (path_exists("/usr/bin/ffetch") and is_file("/usr/bin/ffetch")) equal_to true =
+    exec("sudo rm -f /usr/bin/ffetch");
+    
+    if (path_exists("/usr/bin/ffetch") and is_file("/usr/bin/ffetch")) equal_to true =
+     print("you don't type the password correctly?\n");
+     exit(1);
+    ;
+   ;
+
+   exec("sudo mv ffetch /usr/bin/ffetch");
+
+   if (path_exists("/usr/bin/ffetch") and is_file("/usr/bin/ffetch")) equal_to true =
+    print("installed successfully to /usr/bin/ffetch\n");
+   ; else =
+    print("ffetch file does not exist in /usr/bin/, something went wrong.\nmaybe you don't type the password correctly?\n");
+   ;
+  ; else =
+   print("ffetch file does not exist or corrupted file\n");
+  ; 
+ ; else =
+  print("no src/ffetch.zig found.\n");
+ ;
+;
