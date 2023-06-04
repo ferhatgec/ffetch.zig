@@ -20,8 +20,6 @@ pub fn main() !void {
     }
 
     var to: []const u8 = "";
-    var val: []const u8 = "";
-    _ = val;
 
     for (args[0..]) |argument| {
         if (argument.len >= 2 and std.mem.eql(u8, argument[0..3], "to=")) {
